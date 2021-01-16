@@ -11,7 +11,7 @@
  *
  * @package Basic_WP_Theme
  */
-
+ 
 get_header();
 
 while (have_posts()) :
