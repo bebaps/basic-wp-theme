@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types = 1);
+
 /**
  * The template for displaying 404 pages (not found)
  *
@@ -12,11 +15,11 @@ get_header();
 
     <section>
         <header>
-            <h1><?php esc_html_e('Oops! That page can&rsquo;t be found.', 'bsk-wp-theme'); ?></h1>
+            <h1><?php esc_html_e('Oops! That page can&rsquo;t be found.', 'basic-wp-theme'); ?></h1>
         </header>
 
         <div>
-            <p><?php esc_html_e('What you are looking for was not found.', 'bsk-wp-theme'); ?></p>
+            <p><?php esc_html_e('What you are looking for was not found.', 'basic-wp-theme'); ?></p>
         </div>
     </section>
 

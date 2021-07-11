@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types = 1);
+
 /**
  * The template for displaying all pages
  *
@@ -11,11 +14,12 @@
  *
  * @package Basic_WP_Theme
  */
- 
+
 get_header();
 
 while (have_posts()) :
     the_post();
+
     get_template_part('template-parts/content', 'page');
 endwhile;
 

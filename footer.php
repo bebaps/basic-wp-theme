@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types = 1);
+
 /**
  * The template for displaying the footer
  *
@@ -11,9 +14,12 @@
 ?>
 
 </main>
+
 <?php get_template_part('template-parts/footer'); ?>
+
 </div>
 
 <?php wp_footer(); ?>
+<?php basic_wp_theme_footer(); ?>
 </body>
 </html>

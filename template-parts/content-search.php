@@ -1,32 +1,27 @@
-<?php
-/**
- * Template part for displaying results in search pages
- *
- * @link    https://developer.wordpress.org/themes/basics/template-hierarchy/
- *
- * @package Basic_WP_Theme
- */
-?>
+<?php declare(strict_types = 1); ?>
 
 <article <?php post_class(); ?>>
     <header>
-        <h2><a href="<?php echo esc_url(get_permalink()); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
+        <h2>
+            <a href="<?php echo esc_url(get_permalink()); ?>" rel="bookmark"><?php the_title(); ?></a>
+        </h2>
 
         <?php if ('post' === get_post_type()) : ?>
             <div>
-                <?php bsk_wp_theme_posted_on(); ?>
-                <?php bsk_wp_theme_posted_by(); ?>
+                <?php basic_wp_theme_posted_on(); ?>
+
+                <?php basic_wp_theme_posted_by(); ?>
             </div>
         <?php endif; ?>
     </header>
 
-    <?php bsk_wp_theme_post_thumbnail(); ?>
+    <?php basic_wp_theme_post_thumbnail(); ?>
 
     <section>
         <?php the_excerpt(); ?>
     </section>
 
     <footer>
-        <?php bsk_wp_theme_entry_footer(); ?>
+        <?php basic_wp_theme_entry_footer(); ?>
     </footer>
 </article>

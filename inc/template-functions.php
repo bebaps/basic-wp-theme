@@ -1,20 +1,25 @@
 <?php
+
+declare(strict_types = 1);
+
 /**
  * Functions which enhance the theme by hooking into WordPress
  *
  * @package Basic_WP_Theme
  */
 
+ add_filter('body_class', 'basic_wp_theme_body_classes');
+ add_action('wp_head', 'basic_wp_theme_pingback_header');
+
 /**
  * Adds custom classes to the array of body classes.
  *
- * @param  array  $classes  Classes for the body element.
+ * @param array $classes Classes for the body element.
  *
  * @return array
  */
-function bsk_wp_theme_body_classes($classes)
+function basic_wp_theme_body_classes(array $classes): array
 {
-    // Adds a class of no-sidebar when there is no sidebar present.
     if (!is_active_sidebar('sidebar-1')) {
         $classes[] = 'no-sidebar';
     }
@@ -22,16 +27,12 @@ function bsk_wp_theme_body_classes($classes)
     return $classes;
 }
 
-add_filter('body_class', 'bsk_wp_theme_body_classes');
-
 /**
  * Add a pingback url auto-discovery header for single posts, pages, or attachments.
  */
-function bsk_wp_theme_pingback_header()
+function basic_wp_theme_pingback_header()
 {
     if (is_singular() && pings_open()) {
         printf('<link rel="pingback" href="%s">', esc_url(get_bloginfo('pingback_url')));
     }
 }
-
-add_action('wp_head', 'bsk_wp_theme_pingback_header');

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types = 1);
+
 /**
  * The template for displaying all single posts
  *
@@ -16,16 +19,14 @@ while (have_posts()) :
 
     the_post_navigation(
         [
-            'prev_text' => '<span>' . esc_html__('Previous:', 'bsk-wp-theme') . '</span> <span>%title</span>',
-            'next_text' => '<span>' . esc_html__('Next:', 'bsk-wp-theme') . '</span> <span>%title</span>',
+            'prev_text' => '<span>' . esc_html__('Previous:', 'basic-wp-theme') . '</span> <span>%title</span>',
+            'next_text' => '<span>' . esc_html__('Next:', 'basic-wp-theme') . '</span> <span>%title</span>',
         ]
     );
 
-    // If comments are open or we have at least one comment, load up the comment template.
     if (comments_open() || get_comments_number()) :
         comments_template();
     endif;
-
 endwhile;
 
 get_sidebar();

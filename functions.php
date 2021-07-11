@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types = 1);
+
 /**
  * Basic WP Theme functions and definitions
  *
@@ -7,11 +10,16 @@
  * @package Basic_WP_Theme
  */
 
-if (!defined('_BSK_VERSION')) {
-    define('_BSK_VERSION', '1.0.0');
+if (!defined('BASIC_WP_THEME_VERSION')) {
+    define('BASIC_WP_THEME_VERSION', '1.0.0');
 }
 
-if (!function_exists('bsk_wp_theme_setup')) :
+add_action('after_setup_theme', 'basic_wp_theme_setup');
+add_action('after_setup_theme', 'basic_wp_theme_content_width', 0);
+add_action('widgets_init', 'basic_wp_theme_widgets_init');
+add_action('wp_enqueue_scripts', 'basic_wp_theme_scripts');
+
+if (!function_exists('basic_wp_theme_setup')) {
     /**
      * Sets up theme defaults and registers support for various WordPress features.
      *
@@ -19,7 +27,7 @@ if (!function_exists('bsk_wp_theme_setup')) :
      * runs before the init hook. The init hook is too late for some features, such
      * as indicating support for post thumbnails.
      */
-    function bsk_wp_theme_setup()
+    function basic_wp_theme_setup()
     {
         // Add default posts and comments RSS feed links to head.
         add_theme_support('automatic-feed-links');
@@ -42,7 +50,7 @@ if (!function_exists('bsk_wp_theme_setup')) :
         // This theme uses wp_nav_menu() in one location.
         register_nav_menus(
             [
-                'primary' => esc_html__('Primary', 'bsk-wp-theme'),
+                'primary' => esc_html__('Primary', 'basic-wp-theme'),
             ]
         );
 
@@ -74,15 +82,14 @@ if (!function_exists('bsk_wp_theme_setup')) :
         add_theme_support(
             'custom-logo',
             [
-                'height'      => 250,
-                'width'       => 250,
-                'flex-width'  => true,
+                'height' => 250,
+                'width' => 250,
+                'flex-width' => true,
                 'flex-height' => true,
             ]
         );
     }
-endif;
-add_action('after_setup_theme', 'bsk_wp_theme_setup');
+}
 
 /**
  * Set the content width in pixels, based on the theme's design and stylesheet.
@@ -91,55 +98,54 @@ add_action('after_setup_theme', 'bsk_wp_theme_setup');
  *
  * @global int $content_width
  */
-function bsk_wp_theme_content_width()
+function basic_wp_theme_content_width()
 {
-    $GLOBALS['content_width'] = apply_filters('bsk_wp_theme_content_width', 960);
+    $GLOBALS['content_width'] = apply_filters('basic_wp_theme_content_width', 960);
 }
-
-add_action('after_setup_theme', 'bsk_wp_theme_content_width', 0);
 
 /**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
-function bsk_wp_theme_widgets_init()
+function basic_wp_theme_widgets_init()
 {
     register_sidebar(
         [
-            'name'          => esc_html__('Sidebar', 'bsk-wp-theme'),
-            'id'            => 'sidebar-1',
-            'description'   => esc_html__('Add widgets here.', 'bsk-wp-theme'),
+            'name' => esc_html__('Sidebar', 'basic-wp-theme'),
+            'id' => 'sidebar-1',
+            'description' => esc_html__('Add widgets here.', 'basic-wp-theme'),
             'before_widget' => '<aside class="%2$s">',
-            'after_widget'  => '</aside>',
-            'before_title'  => '<h2>',
-            'after_title'   => '</h2>',
+            'after_widget' => '</aside>',
+            'before_title' => '<h2>',
+            'after_title' => '</h2>',
         ]
     );
 }
 
-add_action('widgets_init', 'bsk_wp_theme_widgets_init');
-
 /**
  * Enqueue scripts and styles.
  */
-function bsk_wp_theme_scripts()
+function basic_wp_theme_scripts()
 {
-    wp_enqueue_style('bsk-wp-theme-style', get_stylesheet_uri(), [], _BSK_VERSION);
+    wp_enqueue_style('basic-wp-theme-style', get_stylesheet_uri(), [], BASIC_WP_THEME_VERSION);
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
 }
 
-add_action('wp_enqueue_scripts', 'bsk_wp_theme_scripts');
-
 /**
  * Custom template tags for this theme.
  */
-require get_template_directory() . '/inc/template-tags.php';
+require_once get_theme_file_path('/inc/template-tags.php');
 
 /**
  * Functions which enhance the theme by hooking into WordPress.
  */
-require get_template_directory() . '/inc/template-functions.php';
+require_once get_theme_file_path('/inc/template-functions.php');
+
+/**
+ * Custom theme functions.
+ */
+require_once get_theme_file_path('/inc/theme-functions.php');
