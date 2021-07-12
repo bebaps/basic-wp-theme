@@ -130,7 +130,7 @@ function basic_wp_theme_scripts()
 {
     wp_enqueue_style('basic-wp-theme-style', get_stylesheet_uri(), [], BASIC_WP_THEME_VERSION);
 
-    if (is_singular() && comments_open() && get_option('thread_comments')) {
+    if ((!is_admin()) && is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
 }
